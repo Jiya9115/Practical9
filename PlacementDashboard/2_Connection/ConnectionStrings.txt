@@ -1,0 +1,16 @@
+Pick ONE of these and paste it into appsettings.json -> ConnectionStrings -> DefaultConnection
+
+1) Visual Studio LocalDB (default)
+Server=(localdb)\MSSQLLocalDB;Database=PlacementDB;Trusted_Connection=True;TrustServerCertificate=True;
+
+2) SQL Server Express
+Server=.\SQLEXPRESS;Database=PlacementDB;Trusted_Connection=True;TrustServerCertificate=True;
+
+3) Full SQL Server (Windows login)
+Server=YOUR_PC_NAME;Database=PlacementDB;Trusted_Connection=True;TrustServerCertificate=True;
+
+4) SQL Server login (user name and password)
+Server=YOUR_PC_NAME;Database=PlacementDB;User Id=sa;Password=YourPassword;TrustServerCertificate=True;
+
+Note: inside the .json file every backslash must be written twice, for example
+(localdb)\\MSSQLLocalDB

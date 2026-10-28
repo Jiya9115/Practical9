@@ -1,0 +1,110 @@
+:root {
+    --ink: #172033;
+    --muted: #64748b;
+    --bg: #f1f5f9;
+    --brand-dark: #0f172a;
+    --brand: #1d4ed8;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.topbar {
+    background: linear-gradient(90deg, #0f172a, #1e3a8a);
+    color: #fff;
+    padding: 14px 0;
+}
+
+.brand {
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.brand span {
+    color: #93c5fd;
+}
+
+.page-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    background: linear-gradient(120deg, #0f172a, #1d4ed8);
+    color: #fff;
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: 0 8px 24px #1e3a8a33;
+}
+
+.page-head h1 {
+    margin: 0 0 4px;
+    font-size: 1.9rem;
+    font-weight: 700;
+}
+
+.page-head p {
+    color: #cbd5e1;
+}
+
+.eyebrow {
+    margin: 0 0 6px;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    color: #93c5fd !important;
+}
+
+.metric {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 3px 14px #14213d12;
+    height: 100%;
+}
+
+.metric span {
+    display: block;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.metric strong {
+    display: block;
+    font-size: 1.9rem;
+    margin-top: 6px;
+}
+
+.table thead th {
+    background: #e8eefb;
+    color: #263554;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 0;
+}
+
+.status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.status.good    { background: #dcfce7; color: #166534; }
+.status.warning { background: #fef3c7; color: #92400e; }
+.status.danger  { background: #fee2e2; color: #991b1b; }
+
+.foot {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 24px 0;
+}

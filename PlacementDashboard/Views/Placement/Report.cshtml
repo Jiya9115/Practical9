@@ -1,0 +1,94 @@
+@model PlacementDashboardViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Placement Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; color: #172033; margin: 28px; }
+        h1 { text-align: center; margin-bottom: 4px; }
+        .subtitle { text-align: center; color: #555; }
+        .summary { display: flex; gap: 14px; margin: 24px 0; }
+        .summary div { border: 1px solid #bbb; padding: 12px; flex: 1; }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 16px 0; }
+        th, td { border: 1px solid #aaa; padding: 7px; text-align: left; }
+        th { background: #eee; }
+        .actions { text-align: center; margin: 16px; }
+        @@media print {
+            .actions { display: none; }
+            body { margin: 8mm; }
+        }
+    </style>
+</head>
+<body>
+    <div class="actions">
+        <button onclick="window.print()">Print / Save as PDF</button>
+        <button onclick="window.close()">Close</button>
+    </div>
+
+    <h1>Placement Report</h1>
+    <p class="subtitle">Generated on @DateTime.Now.ToString("dd-MMM-yyyy HH:mm")</p>
+
+    <div class="summary">
+        <div><b>Total Students</b><br />@Model.TotalStudents</div>
+        <div><b>Students Placed</b><br />@Model.PlacedStudents</div>
+        <div><b>Companies</b><br />@Model.TotalCompanies</div>
+        <div><b>Average Package (LPA)</b><br />@Model.AveragePackage.ToString("0.00")</div>
+    </div>
+
+    <h2>Placement Records (@Model.StatusFilter)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Enrollment No.</th>
+                <th>Student</th>
+                <th>Department</th>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Package LPA</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Placements)
+            {
+                <tr>
+                    <td>@p.EnrollmentNo</td>
+                    <td>@p.StudentName</td>
+                    <td>@p.Department</td>
+                    <td>@p.CompanyName</td>
+                    <td>@p.JobRole</td>
+                    <td>@p.PackageLPA.ToString("0.00")</td>
+                    <td>@p.PlacementStatus</td>
+                    <td>@(p.PlacementDate?.ToString("dd-MMM-yyyy") ?? "-")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2>Company-wise Placement Count</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Students Placed</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in Model.Companies)
+            {
+                <tr>
+                    <td>@c.CompanyName</td>
+                    <td>@c.JobRole</td>
+                    <td>@c.PlacedCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

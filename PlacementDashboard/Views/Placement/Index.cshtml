@@ -1,0 +1,125 @@
+@model PlacementDashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="page-head mb-4">
+    <div>
+        <p class="eyebrow">PLACEMENT CELL</p>
+        <h1>Placement Dashboard</h1>
+        <p class="mb-0">Student placement overview with a company-wise report.</p>
+    </div>
+    <a class="btn btn-light fw-semibold" asp-action="Report" asp-route-status="@Model.StatusFilter" target="_blank">
+        Open Printable Report / Save as PDF
+    </a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3">
+        <div class="metric">
+            <span>Total Students</span>
+            <strong>@Model.TotalStudents</strong>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="metric">
+            <span>Students Placed</span>
+            <strong>@Model.PlacedStudents</strong>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="metric">
+            <span>Companies</span>
+            <strong>@Model.TotalCompanies</strong>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="metric">
+            <span>Average Package (LPA)</span>
+            <strong>@Model.AveragePackage.ToString("0.00")</strong>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-3 p-md-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <h2 class="h5 mb-0">Placement Records</h2>
+            <form asp-action="Index" method="get" class="d-flex gap-2">
+                <select name="status" class="form-select" aria-label="Filter by status">
+                    @foreach (var option in PlacementStatuses.Filters)
+                    {
+                        <option value="@option" selected="@(Model.StatusFilter == option)">
+                            @(option == PlacementStatuses.All ? "All statuses" : option)
+                        </option>
+                    }
+                </select>
+                <button type="submit" class="btn btn-dark px-4">Filter</button>
+            </form>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Enrollment No.</th>
+                        <th>Student Name</th>
+                        <th>Department</th>
+                        <th>Company</th>
+                        <th>Job Role</th>
+                        <th>Package (LPA)</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Model.Placements)
+                    {
+                        <tr>
+                            <td class="text-muted">@p.EnrollmentNo</td>
+                            <td class="fw-semibold">@p.StudentName</td>
+                            <td>@p.Department</td>
+                            <td>@p.CompanyName</td>
+                            <td>@p.JobRole</td>
+                            <td>@p.PackageLPA.ToString("0.00")</td>
+                            <td><span class="status @p.StatusCss">@p.PlacementStatus</span></td>
+                            <td>@(p.PlacementDate?.ToString("dd-MMM-yyyy") ?? "-")</td>
+                        </tr>
+                    }
+                    @if (!Model.Placements.Any())
+                    {
+                        <tr><td colspan="8" class="text-center py-5 text-muted">No placement records found.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-3 p-md-4">
+        <h2 class="h5 mb-3">Company-wise Placement Count</h2>
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Job Role</th>
+                        <th>Students Placed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var c in Model.Companies)
+                    {
+                        <tr>
+                            <td class="fw-semibold">@c.CompanyName</td>
+                            <td>@c.JobRole</td>
+                            <td>@c.PlacedCount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
